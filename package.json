@@ -4,20 +4,29 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "watch": "vite build --watch --ssrManifest --emptyOutDir",
+    "background": "vite --config ./build/vite.config.background.ts",
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "dev:woogle": "vite --config ./build/eval.dev/vite.config.woogle.dev.ts --port 3000",
+    "dev:popup": "vite --config ./build/vite.config.popup.dev.ts --port 3001",
+    "build": "npm run background -- build --ssrManifest --emptyOutDir && npm run woogle -- build && npm run popup -- build",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "dotenv": "^16.5.0",
     "pinia": "^3.0.1",
-    "vue": "^3.5.13"
+    "sass": "^1.87.0",
+    "vite-plugin-vuetify": "^2.1.1",
+    "vue": "^3.5.13",
+    "vuetify": "^3.8.2"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.1",
-    "@types/node": "^22.14.0",
+    "@types/chrome": "^0.0.317",
+    "@types/node": "^22.15.3",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/tsconfig": "^0.7.0",
     "npm-run-all2": "^7.0.2",
