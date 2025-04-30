@@ -138,8 +138,9 @@ class ApiService {
     try {
       const response = await fetch(url, fetchOptions)
 
+      console.log(response)
       // 处理响应
-      if (!response.ok) {
+      if (response.status !== 200) {
         if (response.status === 401) {
           // 未授权，可能是令牌过期
           await this.clearToken()
@@ -151,7 +152,7 @@ class ApiService {
       }
 
       // 返回JSON数据
-      return (await response.json()) as T
+      return (await response) as T
     } catch (error) {
       console.error(`API请求失败 (${endpoint}):`, error)
       throw error
@@ -169,13 +170,21 @@ class ApiService {
     try {
       const data = await this.request<AuthResponse>('/auth', {
         method: 'POST',
-        body: { username, password },
+        body: {
+          username,
+          password,
+          p: 'login',
+          cid: 'proviwords',
+          callback: 'https://woogle.cgm.org.tw/taas/callback',
+          locale: 'tw',
+          submit: '登入',
+        },
       })
 
       if (data.token) {
         await this.setToken(data.token)
         await chrome.storage.local.set({
-          isLoggedIn: true,
+          // isLoggedIn: true,
           username: data.user?.username || username,
           userId: data.user?.id,
         })

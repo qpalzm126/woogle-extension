@@ -1,0 +1,16 @@
+.v-btn {
+  --v-theme-overlay-multiplier: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  cursor: pointer;
+
+  &.v-btn--icon {
+    background-color: transparent;
+  }
+
+  // &:hover {
+  //   .v-btn__overlay {
+  //     opacity: 0.8;
+  //   }
+  // }
+}

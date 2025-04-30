@@ -27,14 +27,14 @@ export default ({ command, mode }: { command: string; mode: string }) => {
       minify: false,
       emptyOutDir: false,
       lib: {
-        entry: resolve(`src/content_scripts/eval/index.ts`),
-        name: 'eval',
-        fileName: 'eval',
+        entry: resolve(`src/content_scripts/woogle/index.ts`),
+        name: 'woogle',
+        fileName: 'woogle',
       },
       rollupOptions: {
         output: {
-          entryFileNames: `content_scripts/eval.js`,
-          assetFileNames: `content_scripts/eval.[ext]`,
+          entryFileNames: `content_scripts/woogle.js`,
+          assetFileNames: `content_scripts/woogle.[ext]`,
         },
       },
     },

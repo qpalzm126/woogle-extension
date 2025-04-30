@@ -35,7 +35,7 @@ export default ({ command, mode }: { command: string; mode: string }) => {
       rollupOptions: {
         // input: { app: 'build/env/index.html', },
         output: {
-          entryFileNames: `content_scripts/eval.js`,
+          entryFileNames: `content_scripts/woogle.js`,
         },
       },
     },

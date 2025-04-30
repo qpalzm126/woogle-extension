@@ -71,32 +71,59 @@ onMounted(() => {
 function onSubmit() {
   state.loading = true
   state.error = ''
+
+  return fetch('https://woogle.cgm.org.tw/_search-source', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'text/ejson',
+    },
+    body: JSON.stringify({
+      source: 'words',
+      query: '主日',
+      options: {
+        from: 0,
+        loginToken: '',
+        userId: '',
+      },
+    }),
+  })
+    .then((res) => {
+      if (!res.ok) {
+      }
+      return res.text()
+    })
+    .then((data) => {
+      const parsedData = JSON.parse(data)
+      console.log(parsedData)
+    })
+
   apiService
     .login(input.username, input.password)
-    .then(() => {
-      return fetch('https://woogle.cgm.org.tw/_search-source', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/ejson',
-        },
-        body: JSON.stringify({
-          source: 'words',
-          query: '主日',
-          options: {
-            from: 0,
-          },
-        }),
-      })
-        .then((res) => {
-          if (!res.ok) {
-          }
-          return res.text()
-        })
-        .then((data) => {
-          const parsedData = JSON.parse(data)
-          console.log(parsedData)
-        })
-    })
+    // .then(() => {
+    //   console.log('登入成功')
+    //   return fetch('https://woogle.cgm.org.tw/_search-source', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'text/ejson',
+    //     },
+    //     body: JSON.stringify({
+    //       source: 'words',
+    //       query: '主日',
+    //       options: {
+    //         from: 0,
+    //       },
+    //     }),
+    //   })
+    //     .then((res) => {
+    //       if (!res.ok) {
+    //       }
+    //       return res.text()
+    //     })
+    //     .then((data) => {
+    //       const parsedData = JSON.parse(data)
+    //       console.log(parsedData)
+    //     })
+    // })
     .catch((err) => {
       console.error(err)
     })
